@@ -6,13 +6,21 @@ import { AppComponent } from './app.component';
 import { BarreAlimentsComponent } from './components/barre-aliments/barre-aliments.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeadComponent } from './components/head/head.component';
+import { RecettesComponent } from './components/recettes/recettes.component';
+import { NutritionComponent } from './components/nutrition/nutrition.component';
+import { RecetteComponent } from './components/recette/recette.component';
+import { InfosNutriComponent } from './components/infos-nutri/infos-nutri.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BarreAlimentsComponent,
     NavbarComponent,
-    HeadComponent
+    HeadComponent,
+    RecettesComponent,
+    NutritionComponent,
+    RecetteComponent,
+    InfosNutriComponent
   ],
   imports: [
     BrowserModule,
