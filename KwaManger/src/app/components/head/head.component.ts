@@ -10,6 +10,7 @@ export class HeadComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {
     tags: this.fb.array([])
+    
   }
 
 }
