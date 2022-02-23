@@ -4,21 +4,14 @@
         <div class="row justify-content-center">
             <div class="col-xl-6">
                 <div class="text-center text-white">
-                    <!-- Page heading-->
-                    <h1 class="mb-5">KwaManger</h1>
-                    <!-- Signup form-->
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- * * SB Forms Contact Form * *-->
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- This form is pre-integrated with SB Forms.-->
-                    <!-- To make this form functional, sign up at-->
-                    <!-- https://startbootstrap.com/solution/contact-forms-->
-                    <!-- to get an API token!-->
+                    <div class="image-logo">
+                      <img src="../../../assets/img/KwaMangerLogoWhite.png" alt="logo">
+                    </div>
                     <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
                         <!-- Email address input-->
                         <div class="row">
                             <div class="col">
-                                <input class="form-control form-control-lg" id="ingredient" type="text" placeholder="Ingrédient" data-sb-validations="Entrez un ingrédient" />
+                                <input class="form-control form-control-lg" id="ingredient" type="text" placeholder="Ingrédient (8 max.)" data-sb-validations="Entrez un ingrédient" />
                                 <div class="invalid-feedback text-white" data-sb-feedback="Ingrédient requis">Un ingrédient est requis.</div>
                             </div>
                             <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Valider</button></div>

@@ -39,7 +39,9 @@
   grid-column-start: 3;
   grid-column-end: 4;
 
-  margin: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .bouton-nutri button{
