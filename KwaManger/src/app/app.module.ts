@@ -10,6 +10,7 @@ import { RecettesComponent } from './components/recettes/recettes.component';
 import { NutritionComponent } from './components/nutrition/nutrition.component';
 import { RecetteComponent } from './components/recette/recette.component';
 import { InfosNutriComponent } from './components/infos-nutri/infos-nutri.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { InfosNutriComponent } from './components/infos-nutri/infos-nutri.compon
     RecettesComponent,
     NutritionComponent,
     RecetteComponent,
-    InfosNutriComponent
+    InfosNutriComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
