@@ -21,12 +21,16 @@
                                 <input class="form-control form-control-lg" id="ingredient" type="text" placeholder="Ingrédient" data-sb-validations="Entrez un ingrédient" />
                                 <div class="invalid-feedback text-white" data-sb-feedback="Ingrédient requis">Un ingrédient est requis.</div>
                             </div>
-                            <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Valider</button></div>
+                            <div class="col-auto"><button class="btn btn-primary btn-lg enabled" id="submitButton" type="submit">Valider</button></div>
+
+                            <div class="center-auto"><button class="btn btn-primary btn-lg enabled" id="submitButton" type="submit" ng-click="listerIngredients()">+</button></div>
+
                         </div>
                         <!-- Submit success message-->
                         <!---->
                         <!-- This is what your users will see when the form-->
                         <!-- has successfully submitted-->
+
                         <div class="d-none" id="submitSuccessMessage">
                             <div class="text-center mb-3">
                                 <div class="fw-bolder">Form submission successful!</div>
@@ -39,6 +43,7 @@
                         <!-- This is what your users will see when there is-->
                         <!-- an error submitting the form-->
                         <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                        <app-ingredient></app-ingredient>
                     </form>
                 </div>
             </div>
