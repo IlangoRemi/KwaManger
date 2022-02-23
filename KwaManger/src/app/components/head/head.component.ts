@@ -7,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeadComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+//    private fb: FormBuilder,
+  ){}
+
   ngOnInit(): void {
-    tags: this.fb.array([])
-    
+  //  tags: this.fb.array([])
+
   }
 
 }
