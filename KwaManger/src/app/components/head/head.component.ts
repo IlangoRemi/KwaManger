@@ -12,7 +12,6 @@ export class HeadComponent {
     let zoneAjout = document.getElementById('barreAliments')!;
     let barre = <HTMLInputElement> document.getElementById('barreAlim');
     let el = document.createElement('button');
-    const sup = document.removeChild;
 
     el.className = 'boutonAliment';
 
