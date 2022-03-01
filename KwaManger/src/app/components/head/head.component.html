@@ -14,7 +14,7 @@
                     <!-- To make this form functional, sign up at-->
                     <!-- https://startbootstrap.com/solution/contact-forms-->
                     <!-- to get an API token!-->
-                    <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
+
                         <!-- Email address input-->
                         <div class="row">
                             <div class="col">
@@ -23,7 +23,9 @@
                             </div>
                             <div class="col-auto"><button class="btn btn-primary btn-lg enabled" id="submitButton" type="submit">Valider</button></div>
 
-                            <div class="center-auto"><button class="btn btn-primary btn-lg enabled" id="submitButton" type="submit" ng-click="listerIngredients()">+</button></div>
+                          <!--  <div class="center-auto"><button class="btn btn-primary btn-lg enabled" id="addButton" type="button" ng-click="resetUserForm(userForm)">+</button></div> -->
+                          <label for="ingredients">Ingredients</label>
+                          <input type="text" id="ingredients" [formControl]="ingredients" >
 
                         </div>
                         <!-- Submit success message-->
@@ -44,7 +46,7 @@
                         <!-- an error submitting the form-->
                         <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                         <app-ingredient></app-ingredient>
-                    </form>
+
                 </div>
             </div>
         </div>

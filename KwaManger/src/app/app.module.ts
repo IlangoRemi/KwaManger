@@ -11,6 +11,7 @@ import { NutritionComponent } from './components/nutrition/nutrition.component';
 import { RecetteComponent } from './components/recette/recette.component';
 import { InfosNutriComponent } from './components/infos-nutri/infos-nutri.component';
 import { IngredientComponent } from './components/ingredient/ingredient.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
