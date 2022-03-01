@@ -7,10 +7,11 @@
                     <div class="image-logo">
                       <img src="../../../assets/img/KwaMangerLogoWhite.png" alt="logo">
                     </div>
-                    <label for="name">Name: </label>
-                    <input id="name" type="text" [formControl]="name">
-                    <br><br>
-                    <button>{{ name.value }}</button>
+                    <div id="barreAliments">
+                        <input id="barreAlim" type="text">
+
+                        <button id="boutonPlus" type="button" (click)="updateIngredient()">+</button>
+                      </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-head',
@@ -8,5 +8,14 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./head.component.css']
 })
 export class HeadComponent {
-  name = new FormControl('');
+  updateIngredient() {
+    let zoneAjout = document.getElementById('barreAliments')!;
+    let barre = <HTMLInputElement> document.getElementById('barreAlim');
+    const el = document.createElement('button');
+    el.className = 'boutonAliment';
+
+    el.innerHTML = barre.value;
+
+    zoneAjout.appendChild(el);
+  }
 }
