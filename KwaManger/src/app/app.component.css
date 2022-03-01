@@ -1,0 +1,27 @@
+.body{
+  display: block;
+}
+
+.head{
+
+}
+
+.haut{
+  padding: inherit;
+}
+
+.corps{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.recette{
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.nutrition{
+  grid-column: 2;
+  grid-row: 1;
+}
