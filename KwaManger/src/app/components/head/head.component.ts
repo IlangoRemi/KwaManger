@@ -11,11 +11,14 @@ export class HeadComponent {
   updateIngredient() {
     let zoneAjout = document.getElementById('barreAliments')!;
     let barre = <HTMLInputElement> document.getElementById('barreAlim');
-    const el = document.createElement('button');
+    let el = document.createElement('button');
     el.className = 'boutonAliment';
-
     el.innerHTML = barre.value;
 
     zoneAjout.appendChild(el);
+
+    el.onclick = function () {
+      zoneAjout.removeChild(el);
+    }
   }
 }
