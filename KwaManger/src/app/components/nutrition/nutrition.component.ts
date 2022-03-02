@@ -11,5 +11,4 @@ export class NutritionComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

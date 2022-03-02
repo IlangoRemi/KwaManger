@@ -12,4 +12,11 @@ export class InfosNutriComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  infos(recette: string): void{
+    let zoneAjout = document.getElementById('infosNutri')!;
+    let el = document.createElement('p');
+    el.innerHTML = recette;
+
+    zoneAjout.appendChild(el);
+  }
 }
