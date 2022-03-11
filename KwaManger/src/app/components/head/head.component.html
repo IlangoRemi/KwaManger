@@ -7,9 +7,13 @@
                       <img src="../../../assets/img/KwaMangerLogoWhite.png" alt="logo">
                     </div>
                     <div id="barreAliments">
-                        <input id="barreAlim" type="text">
 
-                        <button id="boutonPlus" type="button" (click)="updateIngredient()">+</button>
+
+                      <input id="barreAlim" type="text" [(ngModel)]="model">
+
+
+                        <button id="boutonPlus" [disabled]="model === ''" type="button" (click)=updateIngredient() >+</button>
+
                       </div>
                 </div>
             </div>
