@@ -11,42 +11,49 @@ import * as mapboxgl from 'mapbox-gl';
 
 export class MapComponent implements OnInit {
 
-  map: mapboxgl.Map;
+
 
   style = 'mapbox://styles/mapbox/streets-v11';
 
-  //2 Pl. de la République, 53140 Pré-en-Pail-Saint-Samson
-  lat = 48.460749;
-  lng = -0.197194;
 
   constructor() {}
 
   ngOnInit() {
 
-      this.map = new mapboxgl.Map({
-        accessToken: 'pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ',
-        container: 'map',
-        style: this.style,
-        zoom: 13,
-        center: [this.lng, this.lat]
-    });    // Add map controls
+    //2 Pl. de la République, 53140 Pré-en-Pail-Saint-Samson
+    let lat = 48.460749;
+    let lng = -0.197194;
+    let map;
+    map = new mapboxgl.Map({
+      accessToken: 'pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ',
+      container: 'map',
+      style: this.style,
+      zoom: 13,
+      center: [lng, lat]
+    });   
+
     const geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
+     positionOptions: {
         enableHighAccuracy: true
       },
-      // When active the map will receive updates to the device's location as it changes.
+
       trackUserLocation: true
     });
-    this.map.addControl(geolocate);
 
-    this.map.on('load', function(){
+    map.addControl(geolocate);
+
+    map.on('load', function(){
       geolocate.trigger();
     });
 
     navigator.geolocation.getCurrentPosition((position) => {
-      this.lat = position.coords.latitude;
-      this.lng = position.coords.longitude;
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
     });
+
+    /*const marker = new mapboxgl.Marker() // Initialize a new marker
+    .setLngLat([this.lng, this.lat]) // Marker [lng, lat] coordinates
+    .addTo(this.map);*/
 
 
   }
