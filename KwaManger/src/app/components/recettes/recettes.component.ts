@@ -42,7 +42,7 @@ export class RecettesComponent implements OnInit {
     })
     .catch(error => {
       alert(error);
-      throw new Error('Erreur charge,ent');
+      throw new Error('Erreur chargement');
     });
   };
 
@@ -60,13 +60,7 @@ export class RecettesComponent implements OnInit {
     const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.maxIngreds + this.maxTime + this.apiId + this.apiKey;
     console.log("Voici l'url : " + url);
 
-    let recipes = this.requeteApi(url);
-    console.log(recipes);
-    //await writeJsonFile('recette.json', recipes);
-
-    //fetch url
-    /*const recipes = res.data;
-    console.log(recipes);*/
-    //ajout dans une liste ?
+    //let recipes = this.requeteApi(url);
+    //console.log(recipes);
   };
 }
