@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { BlocNutritionComponent } from '../bloc-nutrition/bloc-nutrition.component';
+import { RecettesComponent } from '../recettes/recettes.component';
 @Component({
   selector: 'app-recette',
   templateUrl: './recette.component.html',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecetteComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
+  }
+
+  displayInfos(){
+    let nutriComp = new BlocNutritionComponent();
+    nutriComp.infos("Blanquette");
+    RecettesComponent.setInfoNutri(true);
   }
 
 }
