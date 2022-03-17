@@ -22,15 +22,18 @@ export class HeadComponent {
     let zoneAjout = document.getElementById('barreAliments')!;
     let barre = <HTMLInputElement> document.getElementById('barreAlim');
     let el = document.createElement('button');
-
-    el.className = 'boutonAliment';
+    el.className = 'btn btn-primary';
+    el.style.margin = "2px";
     el.innerHTML = barre.value;
 
     zoneAjout.appendChild(el);
 
-
     el.onclick = function () {
       zoneAjout.removeChild(el);
     }
+  }
+
+  viderBarre(){
+    this.model= "";
   }
 }
