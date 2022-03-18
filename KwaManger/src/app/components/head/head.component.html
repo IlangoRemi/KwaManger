@@ -8,12 +8,20 @@
                     </div>
                     <div id="barreAliments">
 
+                      <input class="form-control" id="barreAlim" type="text" [(ngModel)]="model" >
 
-                      <input id="barreAlim" type="text" [(ngModel)]="model">
+
+                          <button class="btn btn-primary"  id="boutonPlus" [disabled]="model === ''" type="button" (click)=updateIngredient();viderBarre()>+</button>
 
 
-                        <button id="boutonPlus" [disabled]="model === ''" type="button" (click)=updateIngredient() >+</button>
+                          <br>
 
+
+                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider">Valider</button>
+                            <br>
+
+
+                            <br>
                       </div>
                 </div>
             </div>

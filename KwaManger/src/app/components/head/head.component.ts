@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RecettesComponent } from '../recettes/recettes.component';
+
 
 import { FormGroup, FormControl } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,19 +20,48 @@ import { NgModule } from '@angular/core';
 export class HeadComponent {
   model= '';
 
+listeAlim:string[] =[];
+
+
+
+listeAlimSupprimer(element:string) {
+  let index = this.listeAlim.indexOf(element);
+  this.listeAlim.splice(index, 1);
+}
+
+// ajoute un ingredient dans une liste et le transforme en bouton qui peut être supprimer
   updateIngredient() {
     let zoneAjout = document.getElementById('barreAliments')!;
     let barre = <HTMLInputElement> document.getElementById('barreAlim');
     let el = document.createElement('button');
 
-    el.className = 'boutonAliment';
+    el.className = 'btn btn-primary';
+    el.style.margin = "2px";
     el.innerHTML = barre.value;
+
+    const head = this;
+
+    this.listeAlim.push(barre.value);
 
     zoneAjout.appendChild(el);
 
-
     el.onclick = function () {
       zoneAjout.removeChild(el);
+
+      head.listeAlimSupprimer(barre.value);
     }
+
+    console.log(this.listeAlim);
+  }
+
+  envoyerIngredients(){
+    let recette = new RecettesComponent();
+    recette.fetchRecipes(this.listeAlim);
+  }
+  
+
+// vide la barre de recherche lorsqu'on appuie dur le bouton ajouter
+  viderBarre(){
+    this.model= "";
   }
 }

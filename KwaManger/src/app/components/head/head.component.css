@@ -1,6 +1,18 @@
+/* bouton ajouter  */
+.btn-primary{
+  margin-right: -110%;
+  margin-top: -10.5%;
+}
+
+/* bouton valider */
+.btn-lg{
+  margin-right: 2%;
+  margin-top: -1%;
+}
+
 .image-logo{
   margin-top: -20%;
-  margin-left: -20%;
+  margin-left: 10%;
 }
 
 .image-logo img{
