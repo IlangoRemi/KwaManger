@@ -14,7 +14,6 @@ export class RecettesComponent implements OnInit {
   apiId = "&app_id=e323e869";
   maxIngreds = `&ingr=6`;
 
-
   constructor() { }
 
   ngOnInit(): void {
