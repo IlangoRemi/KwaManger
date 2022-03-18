@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RecettesComponent } from '../recettes/recettes.component';
+
 
 import { FormGroup, FormControl } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,6 +21,7 @@ export class HeadComponent {
   model= '';
 
 listeAlim:string[] =[];
+
 
 
 listeAlimSupprimer(element:string) {
@@ -50,6 +53,12 @@ listeAlimSupprimer(element:string) {
 
     console.log(this.listeAlim);
   }
+
+  envoyerIngredients(){
+    let recette = new RecettesComponent();
+    recette.fetchRecipes(this.listeAlim);
+  }
+  
 
 // vide la barre de recherche lorsqu'on appuie dur le bouton ajouter
   viderBarre(){

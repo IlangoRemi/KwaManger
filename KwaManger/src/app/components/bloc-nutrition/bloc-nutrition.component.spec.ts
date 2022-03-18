@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfosNutriComponent } from './infos-nutri.component';
+import { BlocNutritionComponent } from './bloc-nutrition.component';
 
-describe('InfosNutriComponent', () => {
-  let component: InfosNutriComponent;
-  let fixture: ComponentFixture<InfosNutriComponent>;
+describe('BlocNutritionComponent', () => {
+  let component: BlocNutritionComponent;
+  let fixture: ComponentFixture<BlocNutritionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InfosNutriComponent ]
+      declarations: [ BlocNutritionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfosNutriComponent);
+    fixture = TestBed.createComponent(BlocNutritionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
