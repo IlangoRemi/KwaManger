@@ -18,10 +18,12 @@ import { NgModule } from '@angular/core';
 export class HeadComponent {
   model= '';
 
+// ajoute un ingredient dans une liste et le transforme en bouton qui peut être supprimer
   updateIngredient() {
     let zoneAjout = document.getElementById('barreAliments')!;
     let barre = <HTMLInputElement> document.getElementById('barreAlim');
     let el = document.createElement('button');
+
     el.className = 'btn btn-primary';
     el.style.margin = "2px";
     el.innerHTML = barre.value;
@@ -33,6 +35,7 @@ export class HeadComponent {
     }
   }
 
+// vide la barre de recherche lorsqu'on appuie dur le bouton ajouter
   viderBarre(){
     this.model= "";
   }
