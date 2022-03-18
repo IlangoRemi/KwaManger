@@ -1,3 +1,7 @@
 .liste-recettes{
   padding: 5px;
 }
+
+.liste-recettes{
+  border: 1px solid;
+}

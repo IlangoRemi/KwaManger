@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BlocNutritionComponent } from '../bloc-nutrition/bloc-nutrition.component';
 import { RecettesComponent } from '../recettes/recettes.component';
 @Component({
@@ -7,6 +7,8 @@ import { RecettesComponent } from '../recettes/recettes.component';
   styleUrls: ['./recette.component.css']
 })
 export class RecetteComponent implements OnInit {
+
+  @Input() titre: string = "Recette";
 
   constructor() {
    }
@@ -19,5 +21,4 @@ export class RecetteComponent implements OnInit {
     nutriComp.infos("Blanquette");
     RecettesComponent.setInfoNutri(true);
   }
-
 }
