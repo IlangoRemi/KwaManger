@@ -13,10 +13,8 @@ export class RecettesComponent implements OnInit {
   apiKey = "&app_key=7e75073a08906ea21a48e21d07af238b";
   apiId = "&app_id=e323e869";
   maxIngreds = `&ingr=6`;
-  @ViewChild("recipeContainer", { read: ViewContainerRef }) container: any;
-  componentRef: ComponentRef<RecetteComponent> | undefined;
 
-  constructor(private resolver: ComponentFactoryResolver) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
