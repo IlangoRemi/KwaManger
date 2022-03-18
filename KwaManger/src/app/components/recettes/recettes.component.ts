@@ -13,10 +13,9 @@ export class RecettesComponent implements OnInit {
   apiKey = "&app_key=7e75073a08906ea21a48e21d07af238b";
   apiId = "&app_id=e323e869";
   maxIngreds = `&ingr=6`;
-  @ViewChild("recipeContainer", { read: ViewContainerRef }) container: any;
-  componentRef: ComponentRef<RecetteComponent> | undefined;
 
-  constructor(private resolver: ComponentFactoryResolver) { }
+
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -30,7 +29,7 @@ export class RecettesComponent implements OnInit {
   }
 
   requeteApi = async(url: string) => {
-  
+
     return fetch(url).then(response => {
       if(response.status >=200 && response.status < 300){
         return response.json();
@@ -54,7 +53,7 @@ export class RecettesComponent implements OnInit {
         }
       })
       .join("");
-  
+
     const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.maxIngreds + this.apiId + this.apiKey;
     console.log("Voici l'url : " + url);
 
