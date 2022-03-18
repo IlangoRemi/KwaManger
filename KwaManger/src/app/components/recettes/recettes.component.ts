@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-//import {writeJsonFile} from 'write-json-file';
+import { Component, NgModule,Input,ComponentFactory,ComponentRef, ComponentFactoryResolver, ViewContainerRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { RecetteComponent } from '../recette/recette.component';
+import { BlocNutritionComponent } from '../bloc-nutrition/bloc-nutrition.component';
 
 @Component({
   selector: 'app-recettes',
@@ -11,10 +12,11 @@ export class RecettesComponent implements OnInit {
   static infoNutri : boolean = false;
   apiKey = "&app_key=7e75073a08906ea21a48e21d07af238b";
   apiId = "&app_id=e323e869";
-  maxTime = "&time=30";
-  maxIngreds = `&ingr=10`;
+  maxIngreds = `&ingr=6`;
+  @ViewChild("recipeContainer", { read: ViewContainerRef }) container: any;
+  componentRef: ComponentRef<RecetteComponent> | undefined;
 
-  constructor() { }
+  constructor(private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
   }
@@ -25,10 +27,6 @@ export class RecettesComponent implements OnInit {
 
   static getInfoNutri(): boolean {
     return this.infoNutri;
-  }
-
-  test(): void {
-    this.fetchRecipes("carrot", "chicken");
   }
 
   requeteApi = async(url: string) => {
@@ -46,7 +44,7 @@ export class RecettesComponent implements OnInit {
     });
   };
 
-  fetchRecipes = async (...ingredients: String[]) => {
+  fetchRecipes = async (ingredients: String[]) => {
     const mappedIngreds = ingredients
       .map((ingredient, idx) => {
         if (idx < ingredients.length - 1) {
@@ -57,10 +55,32 @@ export class RecettesComponent implements OnInit {
       })
       .join("");
   
-    const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.maxIngreds + this.maxTime + this.apiId + this.apiKey;
+    const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.maxIngreds + this.apiId + this.apiKey;
     console.log("Voici l'url : " + url);
 
-    //let recipes = this.requeteApi(url);
-    //console.log(recipes);
+    let zoneAjout = document.getElementById("recettes")!;
+    let recipes = this.requeteApi(url);
+    recipes.then(data => {
+      for(const recette of data.hits){
+        let ul = document.createElement("ul");
+        let titre = document.createElement("li");
+        let image = document.createElement("li");
+        let imageSrc = document.createElement("img");
+
+        imageSrc.src = recette.recipe.image;
+        image.appendChild(imageSrc);
+        titre.innerHTML = recette.recipe.label;
+        ul.appendChild(titre);
+        ul.appendChild(image);
+        //ul.onclick = this.displayInfos(recette.recipe.label)
+        zoneAjout.appendChild(ul);
+      }
+    });
   };
+
+  displayInfos(titre: string): any{
+    let nutriComp = new BlocNutritionComponent();
+    nutriComp.infos(titre);
+    RecettesComponent.setInfoNutri(true);
+  }
 }
