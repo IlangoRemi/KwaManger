@@ -18,6 +18,14 @@ import { NgModule } from '@angular/core';
 export class HeadComponent {
   model= '';
 
+listeAlim:string[] =[];
+
+
+listeAlimSupprimer(element:string) {
+  let index = this.listeAlim.indexOf(element);
+  this.listeAlim.splice(index, 1);
+}
+
 // ajoute un ingredient dans une liste et le transforme en bouton qui peut être supprimer
   updateIngredient() {
     let zoneAjout = document.getElementById('barreAliments')!;
@@ -28,11 +36,19 @@ export class HeadComponent {
     el.style.margin = "2px";
     el.innerHTML = barre.value;
 
+    const head = this;
+
+    this.listeAlim.push(barre.value);
+
     zoneAjout.appendChild(el);
 
     el.onclick = function () {
       zoneAjout.removeChild(el);
+
+      head.listeAlimSupprimer(barre.value);
     }
+
+    console.log(this.listeAlim);
   }
 
 // vide la barre de recherche lorsqu'on appuie dur le bouton ajouter
