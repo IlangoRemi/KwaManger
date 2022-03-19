@@ -68,6 +68,9 @@ export class RecettesComponent implements OnInit {
         const component = this.placeholder.createComponent(componentFactory);
         component.instance.titre = recette.recipe.label;
         component.instance.image = recette.recipe.image;
+        component.instance.ingredients = recette.recipe.ingredientLines;
+        component.instance.temps = recette.recipe.totalTime;
+        component.instance.avertissement = recette.recipe.cautions;
       }
     });
   };

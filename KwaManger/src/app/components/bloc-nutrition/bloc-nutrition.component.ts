@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BlocNutritionComponent implements OnInit {
 
-  @Input() test: string = "nutri";
+  @Input() titre: string = "nutri";
 
   constructor() { }
 

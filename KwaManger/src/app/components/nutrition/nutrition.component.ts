@@ -28,7 +28,8 @@ export class NutritionComponent implements OnInit {
     this.placeholder.clear(); 
     const componentFactory = this.resolver.resolveComponentFactory(BlocNutritionComponent);
     const component = this.placeholder.createComponent(componentFactory);
-    component.instance.test = listeInfosNutri[0];
+    component.instance.titre = listeInfosNutri[0];
+    
   }
 
 }
