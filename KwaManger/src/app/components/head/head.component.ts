@@ -1,15 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { RecettesComponent } from '../recettes/recettes.component';
-
-
-import { FormGroup, FormControl } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-
-
-
+import { EnvoiAlimentsService } from '../envoi-aliments.service';
 @Component({
   selector: 'app-head',
   templateUrl: './head.component.html',
@@ -22,12 +13,12 @@ export class HeadComponent {
 
 listeAlim:string[] =[];
 
+  constructor(private envoiAlimentsService:EnvoiAlimentsService) { }
 
-
-listeAlimSupprimer(element:string) {
-  let index = this.listeAlim.indexOf(element);
-  this.listeAlim.splice(index, 1);
-}
+  listeAlimSupprimer(element:string) {
+    let index = this.listeAlim.indexOf(element);
+    this.listeAlim.splice(index, 1);
+  }
 
 // ajoute un ingredient dans une liste et le transforme en bouton qui peut être supprimer
   updateIngredient() {
@@ -55,8 +46,7 @@ listeAlimSupprimer(element:string) {
   }
 
   envoyerIngredients(){
-    let recette = new RecettesComponent();
-    recette.fetchRecipes(this.listeAlim);
+    this.envoiAlimentsService.sendListeAlim(this.listeAlim);
   }
   
 

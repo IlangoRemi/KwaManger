@@ -13,6 +13,7 @@ import { RecetteComponent } from './components/recette/recette.component';
 import { IngredientComponent } from './components/ingredient/ingredient.component';
 import { MapComponent } from './components/map/map.component';
 import { BlocNutritionComponent } from './components/bloc-nutrition/bloc-nutrition.component';
+import { NutritionComponent } from './components/nutrition/nutrition.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BlocNutritionComponent } from './components/bloc-nutrition/bloc-nutriti
     RecetteComponent,
     IngredientComponent,
     MapComponent,
-    BlocNutritionComponent
+    BlocNutritionComponent,
+    NutritionComponent
   ],
   imports: [
     BrowserModule,

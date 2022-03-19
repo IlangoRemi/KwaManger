@@ -1,6 +1,7 @@
 import { Component, NgModule,Input,ComponentFactory,ComponentRef, ComponentFactoryResolver, ViewContainerRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 import { RecetteComponent } from '../recette/recette.component';
-import { BlocNutritionComponent } from '../bloc-nutrition/bloc-nutrition.component';
+import { Subscription } from 'rxjs';
+import { EnvoiAlimentsService } from '../envoi-aliments.service';
 
 @Component({
   selector: 'app-recettes',
@@ -12,19 +13,21 @@ export class RecettesComponent implements OnInit {
   static infoNutri : boolean = false;
   apiKey = "&app_key=7e75073a08906ea21a48e21d07af238b";
   apiId = "&app_id=e323e869";
-  maxIngreds = `&ingr=6`;
+  random = "&random=true";
 
-  constructor() { }
+
+  @ViewChild('placeholder', { read: ViewContainerRef, static: true})
+  public placeholder!: ViewContainerRef;
+
+  listeAlimSub!: Subscription;
+
+  constructor(private resolver: ComponentFactoryResolver, private envoiAlimentsService:EnvoiAlimentsService) { 
+    this.listeAlimSub = this.envoiAlimentsService.getListeAlim().subscribe(listeAlim => {
+      this.fetchRecipes(listeAlim.listeAlim);
+    })
+  }
 
   ngOnInit(): void {
-  }
-
-  static setInfoNutri(boolean: boolean): void {
-    this.infoNutri = boolean;
-  }
-
-  static getInfoNutri(): boolean {
-    return this.infoNutri;
   }
 
   requeteApi = async(url: string) => {
@@ -43,6 +46,7 @@ export class RecettesComponent implements OnInit {
   };
 
   fetchRecipes = async (ingredients: String[]) => {
+    console.log(ingredients);
     const mappedIngreds = ingredients
       .map((ingredient, idx) => {
         if (idx < ingredients.length - 1) {
@@ -52,33 +56,20 @@ export class RecettesComponent implements OnInit {
         }
       })
       .join("");
+  
+    const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.random + this.apiId + this.apiKey;
 
-    const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.maxIngreds + this.apiId + this.apiKey;
     console.log("Voici l'url : " + url);
 
-    let zoneAjout = document.getElementById("recettes")!;
     let recipes = this.requeteApi(url);
+    this.placeholder.clear();
     recipes.then(data => {
       for(const recette of data.hits){
-        let ul = document.createElement("ul");
-        let titre = document.createElement("li");
-        let image = document.createElement("li");
-        let imageSrc = document.createElement("img");
-
-        imageSrc.src = recette.recipe.image;
-        image.appendChild(imageSrc);
-        titre.innerHTML = recette.recipe.label;
-        ul.appendChild(titre);
-        ul.appendChild(image);
-        //ul.onclick = this.displayInfos(recette.recipe.label)
-        zoneAjout.appendChild(ul);
+        const componentFactory = this.resolver.resolveComponentFactory(RecetteComponent);
+        const component = this.placeholder.createComponent(componentFactory);
+        component.instance.titre = recette.recipe.label;
+        component.instance.image = recette.recipe.image;
       }
     });
   };
-
-  displayInfos(titre: string): any{
-    let nutriComp = new BlocNutritionComponent();
-    nutriComp.infos(titre);
-    RecettesComponent.setInfoNutri(true);
-  }
 }
