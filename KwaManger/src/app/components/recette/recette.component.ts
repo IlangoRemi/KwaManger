@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BlocNutritionComponent } from '../bloc-nutrition/bloc-nutrition.component';
-import { RecettesComponent } from '../recettes/recettes.component';
+import { EnvoiInfosNutriService } from '../envoi-infos-nutri.service';
 @Component({
   selector: 'app-recette',
   templateUrl: './recette.component.html',
@@ -9,16 +8,16 @@ import { RecettesComponent } from '../recettes/recettes.component';
 export class RecetteComponent implements OnInit {
 
   @Input() titre: string = "Recette";
+  @Input() image: string = "";
 
-  constructor() {
-   }
+  listeInfosNutri: string[] = [];
+
+  constructor(private envoiInfosNutriService:EnvoiInfosNutriService) { }
 
   ngOnInit(): void {
   }
 
-  displayInfos(){
-    let nutriComp = new BlocNutritionComponent();
-    nutriComp.infos("Blanquette");
-    RecettesComponent.setInfoNutri(true);
+  envoiInfosNutri(){
+    this.envoiInfosNutriService.envoiInfosNutri(this.listeInfosNutri);
   }
 }
