@@ -31,7 +31,7 @@ export class RecettesComponent implements OnInit {
   }
 
   requeteApi = async(url: string) => {
-  
+
     return fetch(url).then(response => {
       if(response.status >=200 && response.status < 300){
         return response.json();
@@ -58,6 +58,7 @@ export class RecettesComponent implements OnInit {
       .join("");
   
     const url = "https://api.edamam.com/search?q=" + mappedIngreds + this.random + this.apiId + this.apiKey;
+
     console.log("Voici l'url : " + url);
 
     let recipes = this.requeteApi(url);
