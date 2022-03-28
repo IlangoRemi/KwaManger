@@ -45,6 +45,9 @@ listeAlim:string[] =[];
     console.log(this.listeAlim);
   }
 
+  /**
+   * Méthode permettant de communiquer les ingrédient grâce au service de communication d'envoi des ingrédients
+   */
   envoyerIngredients(){
     this.envoiAlimentsService.sendListeAlim(this.listeAlim);
   }

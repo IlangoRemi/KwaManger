@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BlocNutritionComponent implements OnInit {
 
+  // Informations nutritionnelles de la recette correspondante
   @Input() titre: string = "titre";
   @Input() kcal: string = "?";
   @Input() prot: string = "?";
