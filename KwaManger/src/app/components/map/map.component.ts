@@ -19,6 +19,7 @@ export class MapComponent implements OnInit {
   lat = 48.460749;
   lng = -0.197194;
 
+ map: mapboxgl.Map;
 
   constructor() {}
 
@@ -26,8 +27,7 @@ export class MapComponent implements OnInit {
 
     //2 Pl. de la République, 53140 Pré-en-Pail-Saint-Samson
     
-    let map;
-    map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       accessToken: 'pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ',
       container: 'map',
       style: this.style,
@@ -43,9 +43,9 @@ export class MapComponent implements OnInit {
       trackUserLocation: true
     });
 
-    map.addControl(geolocate);
+    this.map.addControl(geolocate);
 
-    map.on('load', function(){
+    this.map.on('load', function(){
       geolocate.trigger();
     });
 
@@ -79,7 +79,7 @@ export class MapComponent implements OnInit {
 
 
   trouverLocalisation = async () => {
-    let lieux="Supermarches";
+    let lieux="Carrefour";
     let token = "pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ";
     let rayon = 5
     let R = 6371; // Rayon de la terre
@@ -88,7 +88,6 @@ export class MapComponent implements OnInit {
     let y1 = this.lat+(rayon/R);
     let y2 = this.lat-(rayon/R);
 
-    let lat2 = this.lat - R *2*Math.PI /3535.53;
     let bbox = "&bbox="+x1.toString()+","+x2.toString()+","+y1.toString()+","+y2.toString();
     console.log("Lat :  " + this.lat.toString() + ", Lng : " + this.lng.toString());
 
@@ -97,8 +96,32 @@ export class MapComponent implements OnInit {
     console.log("Voici l'url : " + url);
     let reponse = this.requeteApi(url);
     console.log(reponse);
+
+
+    reponse.then(data => {
+      for(const localisation of data.features){
+        new mapboxgl.Marker().setLngLat(localisation.geometry.coordinates).addTo(this.map);
+      }
+
+
+    });
+
+
+
+ 
   };
 
+
+  /*
+  recipes.then(data => {
+      for(const recette of data.hits){
+        const componentFactory = this.resolver.resolveComponentFactory(RecetteComponent);
+        const component = this.placeholder.createComponent(componentFactory);
+        component.instance.titre = recette.recipe.label;
+        component.instance.image = recette.recipe.image;
+      }
+    });
+    */
 
   //https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?proximity=-122.25948,37.87221&access_token=pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ
 
