@@ -15,7 +15,7 @@ export class MapComponent implements OnInit {
 
   style = "mapbox://styles/mapbox/dark-v10";
 
-
+  //l'adresse par defaut est 2 Pl. de la République, 53140 Pré-en-Pail-Saint-Samson
   lat = 48.460749;
   lng = -0.197194;
 
@@ -25,8 +25,8 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
 
-    //2 Pl. de la République, 53140 Pré-en-Pail-Saint-Samson
     
+    //Creation de la carte
     this.map = new mapboxgl.Map({
       accessToken: 'pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ',
       container: 'map',
@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
       zoom: 13,
       center: [this.lng, this.lat],
     });   
-
+    //Creation d'un geolocate qui tracke la position de l'utilisateur
     const geolocate = new mapboxgl.GeolocateControl({
      positionOptions: {
         enableHighAccuracy: true
@@ -42,26 +42,24 @@ export class MapComponent implements OnInit {
 
       trackUserLocation: true
     });
-
+    //L'ajoute a la map
     this.map.addControl(geolocate);
-
+    //L'active lorsque la map est charge
     this.map.on('load', function(){
       geolocate.trigger();
     });
-
+    //Update les coordonees a celles de l'utilisateur
     navigator.geolocation.getCurrentPosition((position) => {
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
     });
 
-
-    /*const marker = new mapboxgl.Marker() // Initialize a new marker
-    .setLngLat([this.lng, this.lat]) // Marker [lng, lat] coordinates
-    .addTo(this.map);*/
-
-
   }
-
+  /**
+   * Fonction qui envoie une requette d'api
+   * @param url = url de la requette
+   * @returns json avec les resultats de la requette
+   */
   requeteApi = async(url: string) => {
   
     return fetch(url).then(response => {
@@ -77,40 +75,42 @@ export class MapComponent implements OnInit {
     });
   };
 
-
+  /**
+   * Fonction qui renvoie les 5 meilleures resultats correspondant a un lieux donnee autour de la localisation de l'utilisateur puis place un marker sur la carte sur le lieux et un popup sur ce marker avec le nom du lieux et son addresse
+   * @param lieux = nom des lieux a rechercher
+   */
   trouverLocalisation = async (lieux: string) => {
     let token = "pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ";
-    let rayon = 5
-    let R = 6371; // Rayon de la terre
+    let rayon = 5 // Rayon en km autour du quel on limite la recherche
+    let R = 6371; // Rayon en km de la terre
+    // Calcul des coordonnees de la bbox
     let x1 = this.lng-(rayon/R/Math.cos(this.lat));
     let x2 = this.lng-(rayon/R/Math.cos(this.lat));
     let y1 = this.lat+(rayon/R);
     let y2 = this.lat-(rayon/R);
-
+    // Creation de la bbox en string
     let bbox = "&bbox="+x1.toString()+","+x2.toString()+","+y1.toString()+","+y2.toString();
     console.log("Lat :  " + this.lat.toString() + ", Lng : " + this.lng.toString());
-
+    //Construction de l'url
     const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + lieux + ".json?proximity=" + this.lng.toString()  + "," + this.lat.toString() + bbox + "&access_token=" + token;
-    console.log("Lat :  " + this.lat.toString() + ", Lng : " + this.lng.toString());
+    //Affichage de l'url pour debug, clickable depuis la console
     console.log("Voici l'url : " + url);
     let reponse = this.requeteApi(url);
-    console.log(reponse);
 
-    
+    //Interpretation de toutes les reponses
     reponse.then(data => {
       for(const localisation of data.features){
-
+        //Creation d'un element
         const el = document.createElement('div');
-        /* Assign a unique `id` to the marker. */
         el.id = `marker-${localisation.properties.id}`;
-        /* Assign the `marker` class to each marker for styling. */
         el.className = 'marker';
 
-        
-        let marker = new mapboxgl.Marker()
+        //Creation du marker
+        new mapboxgl.Marker()
         .setLngLat(localisation.geometry.coordinates)
         .addTo(this.map);
 
+        //Creation du popup
         new mapboxgl.Popup()
           .setLngLat(localisation.geometry.coordinates)
           .setHTML(
@@ -118,6 +118,13 @@ export class MapComponent implements OnInit {
           )
           .addTo(this.map);
 
+
+          this.map.flyTo({
+            center: localisation.geometry.coordinates,
+            zoom: 15
+          });
+
+        //Ajout de l'evenement de click permetant d'afficher le popup du marker selectionne
         el.addEventListener('click',(e) => {
           this.map.flyTo({
             center: localisation.geometry.coordinates,
@@ -141,12 +148,14 @@ export class MapComponent implements OnInit {
     });
   };
 
-
+  /**
+   * Cherche la localisation des supermarches les plus connus
+   */
   trouverToutesLesLocalisations(){
     this.map.addLayer({
       'id': 'places',
       'type': 'symbol',
-      'source': 'places', // Your Geojson, added as a [Source][4]
+      'source': 'places', 
       'layout': {
         'icon-image': '{icon}-15',
         'icon-allow-overlap': true
@@ -157,7 +166,6 @@ export class MapComponent implements OnInit {
     this.trouverLocalisation("Super U");
     this.trouverLocalisation("Intermarche");
     this.trouverLocalisation("Lidl");
-    this.trouverLocalisation("supermarket");   
     
   };
 }
