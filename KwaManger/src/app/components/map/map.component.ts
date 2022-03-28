@@ -29,7 +29,6 @@ export class MapComponent implements OnInit {
       container: 'map',
       style: this.style,
       zoom: 13,
-      center: [lng, lat]
     });   
 
     const geolocate = new mapboxgl.GeolocateControl({
