@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
       container: 'map',
       style: this.style,
       zoom: 13,
-      center: [this.lng, this.lat]
+      center: [this.lng, this.lat],
     });   
 
     const geolocate = new mapboxgl.GeolocateControl({
@@ -78,8 +78,7 @@ export class MapComponent implements OnInit {
   };
 
 
-  trouverLocalisation = async () => {
-    let lieux="Carrefour";
+  trouverLocalisation = async (lieux: string) => {
     let token = "pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ";
     let rayon = 5
     let R = 6371; // Rayon de la terre
@@ -97,56 +96,68 @@ export class MapComponent implements OnInit {
     let reponse = this.requeteApi(url);
     console.log(reponse);
 
-
+    
     reponse.then(data => {
       for(const localisation of data.features){
-        new mapboxgl.Marker().setLngLat(localisation.geometry.coordinates).addTo(this.map);
+
+        const el = document.createElement('div');
+        /* Assign a unique `id` to the marker. */
+        el.id = `marker-${localisation.properties.id}`;
+        /* Assign the `marker` class to each marker for styling. */
+        el.className = 'marker';
+
+        
+        let marker = new mapboxgl.Marker()
+        .setLngLat(localisation.geometry.coordinates)
+        .addTo(this.map);
+
+        new mapboxgl.Popup()
+          .setLngLat(localisation.geometry.coordinates)
+          .setHTML(
+            `<h3>${localisation.text}</h3><h4>${localisation.properties.address}</h4>`
+          )
+          .addTo(this.map);
+
+        el.addEventListener('click',(e) => {
+          this.map.flyTo({
+            center: localisation.geometry.coordinates,
+            zoom: 15
+          });
+          const activeItem = document.getElementsByClassName('active');
+          e.stopPropagation();
+          
+          const listing = document.getElementById(
+            `listing-${localisation.properties.id}`
+          );
+          if(listing != null){
+            listing.classList.add('active');
+          }
+        });
+        
+
       }
 
 
     });
-
-
-
- 
   };
 
 
-  /*
-  recipes.then(data => {
-      for(const recette of data.hits){
-        const componentFactory = this.resolver.resolveComponentFactory(RecetteComponent);
-        const component = this.placeholder.createComponent(componentFactory);
-        component.instance.titre = recette.recipe.label;
-        component.instance.image = recette.recipe.image;
+  trouverToutesLesLocalisations(){
+    this.map.addLayer({
+      'id': 'places',
+      'type': 'symbol',
+      'source': 'places', // Your Geojson, added as a [Source][4]
+      'layout': {
+        'icon-image': '{icon}-15',
+        'icon-allow-overlap': true
       }
     });
-    */
-
-  //https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?proximity=-122.25948,37.87221&access_token=pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ
-
-  /*chercherSupermarche(){
-    navigator.geolocation.getCurrentPosition(position => {
-      const userCoordinates = [position.coords.longitude, position.coords.latitude];
-      this.map.addSource("user-coordinates", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: userCoordinates
-          }
-        }
-      });
-      this.map.addLayer({
-        id: "user-coordinates",
-        source: "user-coordinates",
-        type: "circle"
-      });
-      this.map.flyTo({
-        center: userCoordinates,
-        zoom: 14
-      });
-    });
-  }*/
+    this.trouverLocalisation("Carrefour");
+    this.trouverLocalisation("Leclerc");
+    this.trouverLocalisation("Super U");
+    this.trouverLocalisation("Intermarche");
+    this.trouverLocalisation("Lidl");
+    this.trouverLocalisation("supermarket");   
+    
+  };
 }
