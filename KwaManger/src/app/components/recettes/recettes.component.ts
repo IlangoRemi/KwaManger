@@ -1,7 +1,8 @@
-import { Component, NgModule,Input,ComponentFactory,ComponentRef, ComponentFactoryResolver, ViewContainerRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnInit } from '@angular/core';
 import { RecetteComponent } from '../recette/recette.component';
 import { Subscription } from 'rxjs';
 import { EnvoiAlimentsService } from '../envoi-aliments.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-recettes',
@@ -10,18 +11,27 @@ import { EnvoiAlimentsService } from '../envoi-aliments.service';
 })
 export class RecettesComponent implements OnInit {
 
-  static infoNutri : boolean = false;
-  apiKey = "&app_key=7e75073a08906ea21a48e21d07af238b";
-  apiId = "&app_id=e323e869";
+  // Clé pour l'API Edamam (Recipes)
+  apiKey = environment.apiEdamamKey;
+  // ID pour l'API Edamam (Recipes)
+  apiId = environment.apiEdamamId;
+  // Chaine représentant l'option de génération de recettes aléatoire
   random = "&random=true";
+  // Type de la recherche
   type = "public"
 
-
+  // Emplacement de l'ajout de composants dynamiques correspondants aux recettes
   @ViewChild('placeholder', { read: ViewContainerRef, static: true})
   public placeholder!: ViewContainerRef;
 
+  // Liste des aliments reçus par la barre des tâches
   listeAlimSub!: Subscription;
 
+  /**
+   * Constructeur de la classe recettes
+   * @param resolver Resolver du composant recettes
+   * @param envoiAlimentsService Service de communication en lien avec la barre d'ajout des aliments
+   */
   constructor(private resolver: ComponentFactoryResolver, private envoiAlimentsService:EnvoiAlimentsService) { 
     this.listeAlimSub = this.envoiAlimentsService.getListeAlim().subscribe(listeAlim => {
       this.fetchRecipes(listeAlim.listeAlim);
@@ -31,6 +41,10 @@ export class RecettesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Méthode permettant de receptionner la requete en donnant un URL à l'API Edamam recipes
+   * @param url URL pour la requête à l'API
+   */
   requeteApi = async(url: string) => {
 
     return fetch(url).then(response => {
@@ -46,8 +60,13 @@ export class RecettesComponent implements OnInit {
     });
   };
 
+  /**
+   * Méthode permettant de chercher les recettes dans le résultat de requête,
+   * générer les composants et leur envoyer les informations pour leur création
+   * @param ingredients Ingrédients à envoyer dans la requête à l'API
+   */
   fetchRecipes = async (ingredients: String[]) => {
-    console.log(ingredients);
+
     const mappedIngreds = ingredients
       .map((ingredient, idx) => {
         if (idx < ingredients.length - 1) {
@@ -58,13 +77,14 @@ export class RecettesComponent implements OnInit {
       })
       .join("");
   
+    // URL formé avec les différentes informations pour la requête
     const url = "https://api.edamam.com/api/recipes/v2?type=public&q=" + mappedIngreds + "&app_id=e323e869&app_key=7e75073a08906ea21a48e21d07af238b&ingr=8&random=true";
-
-    console.log(url);
 
     let recipes = this.requeteApi(url);
     this.placeholder.clear();
     let limit = 0;
+
+    // Parcours les recettes de la requête, créé un composant pour chaque recette avec les informations la concernant
     recipes.then(data => {
       for(const recette of data.hits){
         if(limit > 3){

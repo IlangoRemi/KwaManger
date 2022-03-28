@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
@@ -24,11 +24,10 @@ export class MapComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-
     
     //Creation de la carte
     this.map = new mapboxgl.Map({
-      accessToken: 'pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ',
+      accessToken: environment.accessTokenMap,
       container: 'map',
       style: this.style,
       zoom: 13,
@@ -80,7 +79,7 @@ export class MapComponent implements OnInit {
    * @param lieux = nom des lieux a rechercher
    */
   trouverLocalisation = async (lieux: string) => {
-    let token = "pk.eyJ1Ijoic2ltb25nZXNsYWluIiwiYSI6ImNrenptNTZ2dTAyZmMzZG5qdzQ2Z2x5NWIifQ.mVsYk89FQSw3KWbsPRugEQ";
+    let token = environment.accessTokenMap;
     let rayon = 5 // Rayon en km autour du quel on limite la recherche
     let R = 6371; // Rayon en km de la terre
     // Calcul des coordonnees de la bbox

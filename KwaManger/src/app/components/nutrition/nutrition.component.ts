@@ -10,11 +10,18 @@ import { EnvoiInfosNutriService } from '../envoi-infos-nutri.service'
 })
 export class NutritionComponent implements OnInit {
 
+  // Emplacement de l'ajout de composants dynamiques correspondants aux informations nutritionnelles
   @ViewChild('placeholder', { read: ViewContainerRef, static: true})
   public placeholder!: ViewContainerRef;
 
+  // Liste des informations nutritionnelles receptionnées
   listeInfosNutriSub!: Subscription;
 
+  /**
+   * Constructeur du bloc nutrition
+   * @param resolver Resolver du composant nutrition
+   * @param envoiInfosNutriService Service de communication des informations nutritionnelles
+   */
   constructor(private resolver: ComponentFactoryResolver, private envoiInfosNutriService:EnvoiInfosNutriService) { 
     this.listeInfosNutriSub = this.envoiInfosNutriService.displayInfosNutri().subscribe(listeInfosNutri => {
       this.displayInfosNutri(listeInfosNutri.listeInfosNutri);
@@ -24,8 +31,15 @@ export class NutritionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Méthode générant le composant qui comporte les informations nutritionnelles de la recette qui a été selectionnée
+   * @param listeInfosNutri Liste contenant les informations nutritionnelles
+   */
   displayInfosNutri(listeInfosNutri: string[]): void {
-    this.placeholder.clear(); 
+    // Enlève toute information nutritionnelle déjà présente
+    this.placeholder.clear();
+
+    // Créer le composant et envoi les informations correspondantes à celui-ci
     const componentFactory = this.resolver.resolveComponentFactory(BlocNutritionComponent);
     const component = this.placeholder.createComponent(componentFactory);
     component.instance.titre = listeInfosNutri[0];
@@ -40,5 +54,4 @@ export class NutritionComponent implements OnInit {
     component.instance.pota = Math.round(parseInt(listeInfosNutri[9])).toString();
     component.instance.iron = Math.round(parseInt(listeInfosNutri[10])).toString();
   }
-
 }
