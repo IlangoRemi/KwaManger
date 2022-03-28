@@ -8,7 +8,7 @@
                     </div>
                     <div id="barreAliments">
 
-                      <input class="form-control" id="barreAlim" type="text" [(ngModel)]="model" >
+                      <input class="form-control" id="barreAlim" type="text" [(ngModel)]="model">
 
 
                           <button class="btn btn-primary"  id="boutonPlus" [disabled]="model === ''" type="button" (click)=updateIngredient();viderBarre()>+</button>
@@ -17,7 +17,8 @@
                           <br>
 
 
-                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" (click)=envoyerIngredients()>Valider</button>
+                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length == 0" disabled (click)=envoyerIngredients()>Valider</button>
+                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length > 0" (click)=envoyerIngredients()>Valider</button>
                             <br>
 
 

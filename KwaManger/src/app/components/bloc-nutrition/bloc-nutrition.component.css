@@ -1,0 +1,15 @@
+.infosNutri{
+  padding: 10px;
+  margin: 10px;
+
+  background-color: #FFF;
+  height: auto;
+  width: auto;
+
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -o-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid;
+  box-shadow: 2px 2px 2px black;
+}

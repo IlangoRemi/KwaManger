@@ -7,7 +7,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BlocNutritionComponent implements OnInit {
 
-  @Input() test: string = "nutri";
+  @Input() titre: string = "titre";
+  @Input() kcal: string = "?";
+  @Input() prot: string = "?";
+  @Input() fat: string = "?";
+  @Input() carb: string = "?";
+  @Input() cho: string = "?";
+  @Input() so: string = "?";
+  @Input() calc: string = "?";
+  @Input() magne: string = "?";
+  @Input() pota: string = "?";
+  @Input() iron: string = "?";
 
   constructor() { }
 
