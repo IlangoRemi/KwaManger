@@ -28,7 +28,7 @@ listeAlim:string[] =[];
 
     el.className = 'btn btn-primary';
     el.style.margin = "2px";
-    el.innerHTML = barre.value;
+    el.innerHTML = "<strong>X  </strong>" + barre.value;
 
     const head = this;
 
