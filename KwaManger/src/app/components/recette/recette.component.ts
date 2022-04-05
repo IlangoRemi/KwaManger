@@ -14,6 +14,7 @@ export class RecetteComponent implements OnInit {
   @Input() temps: string = "";
   @Input() avertissement: string[] = [];
   @Input() nutriments: any;
+  @Input() lien: string = "https://ilangoremi.github.io/";
 
   // Informations nutritionnelles de la recette
   listeInfosNutri: string[] = [];

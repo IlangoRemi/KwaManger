@@ -1,5 +1,4 @@
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { RecettesComponent } from '../recettes/recettes.component';
 import { EnvoiAlimentsService } from '../envoi-aliments.service';
 @Component({
   selector: 'app-head',
@@ -28,6 +27,8 @@ listeAlim:string[] =[];
 
     el.className = 'btn btn-primary';
     el.style.margin = "2px";
+    el.style.backgroundColor = "#D53801";
+    el.style.borderColor = "#D53801";
     el.innerHTML = "<strong>X  </strong>" + barre.value;
 
     const head = this;

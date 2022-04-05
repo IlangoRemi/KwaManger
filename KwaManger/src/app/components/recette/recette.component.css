@@ -4,13 +4,13 @@ div.bloc-recette{
   grid-auto-rows: 1fr 3fr;
   padding: 10px;
   margin: 10px;
-  background-color: #CC9F72;
+  background-color: #faa722;
   height: auto;
   width: auto;
 
   border-radius: 10px 10px 10px 10px;
   box-shadow: 0 .5rem 1.2rem rgba(0,0,0,.4);
-  border: 1px solid rgba(0,0,0,.08);
+  border: 1px solid rgba(250, 167, 34, 0.466);
 }
 
 div.bloc-recette:hover{
@@ -19,13 +19,13 @@ div.bloc-recette:hover{
   grid-auto-rows: 1fr 3fr;
   padding: 10px;
   margin: 10px;
-  background-color: #CC9F72;
+  background-color: #faa722;
   height: auto;
   width: auto;
 
   border-radius: 10px 10px 10px 10px;
   box-shadow: 0 .5rem 1.2rem rgba(0,0,0,.4);
-  border: 3px solid rgba(44, 44, 44, 0.37);
+  border: 2px solid rgba(133, 90, 21, 0.466);
 }
 
 .image-recette{
@@ -106,6 +106,25 @@ div.bloc-recette:hover{
 }
 
 .caution p{
+  text-align:center;
+  margin-top: .5rem;
+}
+
+.lienRecette{
+  margin: auto;
+}
+
+.lienRecette img{
+  max-width: 25%;
+  max-height: 25%;
+
+  text-align:center;
+  margin:auto;
+  display:flex;
+  margin-top: 5rem;
+}
+
+.lienRecette p{
   text-align:center;
   margin-top: .5rem;
 }

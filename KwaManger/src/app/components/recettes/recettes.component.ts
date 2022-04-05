@@ -98,6 +98,7 @@ export class RecettesComponent implements OnInit {
         component.instance.temps = recette.recipe.totalTime;
         component.instance.avertissement = recette.recipe.cautions;
         component.instance.nutriments = recette.recipe.totalNutrients;
+        component.instance.lien = recette.recipe.url;
         limit++;
       }
     });

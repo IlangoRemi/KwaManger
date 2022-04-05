@@ -11,14 +11,14 @@
                       <input class="form-control" id="barreAlim" type="text" [(ngModel)]="model">
 
 
-                          <button class="btn btn-primary"  id="boutonPlus" [disabled]="model === ''" type="button" (click)=updateIngredient();viderBarre()>+</button>
+                          <button class="btn"  id="boutonPlus" [disabled]="model === ''" type="button" (click)=updateIngredient();viderBarre()>+</button>
 
 
                           <br>
 
 
-                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length == 0" disabled (click)='envoyerIngredients()'>Valider</button>
-                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length > 0" (click)='envoyerIngredients(); scroll("listeRecettes")'>Valider</button>
+                            <button class="btn btn-valider" id="validerBouton" type="valider" *ngIf="listeAlim.length == 0" disabled (click)='envoyerIngredients()'>Rechercher</button>
+                            <button class="btn btn-valider" id="validerBouton" type="valider" *ngIf="listeAlim.length > 0" (click)='envoyerIngredients(); scroll("listeRecettes")'>Rechercher</button>
                             <br>
 
 
