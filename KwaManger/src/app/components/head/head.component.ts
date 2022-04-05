@@ -57,4 +57,14 @@ listeAlim:string[] =[];
   viderBarre(){
     this.model= "";
   }
+
+  /**
+   * Scroll automatique vers la section recettes
+   * @param id Identifiant du bloc recette
+   */
+  scroll(id: string) {
+    console.log(`scrolling to ${id}`);
+    let el = document.getElementById(id)!;
+    el.scrollIntoView();
+  }
 }

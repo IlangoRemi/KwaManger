@@ -32,6 +32,7 @@ export class RecetteComponent implements OnInit {
    * Méthode se déclenchant lors d'un clic sur une recette.
    * Construit un tableau des différentes informations nutritionnelles et l'envoi au composant nutrition
    * par le service d'envoi des informations nutritionnelles.
+   * Quand la recette est cliquée, la recette est entourée avec une bordure spéciale.
    */
   envoiInfosNutri(){
     // Construction du tableau des informations nutritionnelles
@@ -48,5 +49,14 @@ export class RecetteComponent implements OnInit {
     this.listeInfosNutri.push(this.nutriments.FE.quantity);
     // Envoi du tableau par le service d'envoi des informations nutritionnelles au composant nutrition
     this.envoiInfosNutriService.envoiInfosNutri(this.listeInfosNutri);
-  }  
+
+    var items:any = document.getElementsByClassName('bloc-recette');
+    for (let i = 0; i < items.length; i++) {
+      let element = items[i];
+      element.style.border = '1px solid rgba(0,0,0,.08)';
+    }
+    
+    let divRecette = document.getElementById(this.titre)!;
+    divRecette.style.border = "2px solid #aa0000";
+  }
 }
