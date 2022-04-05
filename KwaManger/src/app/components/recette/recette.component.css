@@ -13,6 +13,21 @@ div.bloc-recette{
   border: 1px solid rgba(0,0,0,.08);
 }
 
+div.bloc-recette:hover{
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-auto-rows: 1fr 3fr;
+  padding: 10px;
+  margin: 10px;
+  background-color: #CC9F72;
+  height: auto;
+  width: auto;
+
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 .5rem 1.2rem rgba(0,0,0,.4);
+  border: 3px solid rgba(44, 44, 44, 0.37);
+}
+
 .image-recette{
   grid-column-start: 1;
   grid-column-end: 2;

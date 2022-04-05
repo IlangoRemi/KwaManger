@@ -17,8 +17,8 @@
                           <br>
 
 
-                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length == 0" disabled (click)=envoyerIngredients()>Valider</button>
-                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length > 0" (click)=envoyerIngredients()>Valider</button>
+                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length == 0" disabled (click)='envoyerIngredients()'>Valider</button>
+                            <button class="btn btn-primary btn-lg enabled" id="validerBouton" type="valider" *ngIf="listeAlim.length > 0" (click)='envoyerIngredients(); scroll("listeRecettes")'>Valider</button>
                             <br>
 
 

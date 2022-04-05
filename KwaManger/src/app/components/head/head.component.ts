@@ -28,7 +28,7 @@ listeAlim:string[] =[];
 
     el.className = 'btn btn-primary';
     el.style.margin = "2px";
-    el.innerHTML = barre.value;
+    el.innerHTML = "<strong>X  </strong>" + barre.value;
 
     const head = this;
 
@@ -56,5 +56,15 @@ listeAlim:string[] =[];
 // vide la barre de recherche lorsqu'on appuie dur le bouton ajouter
   viderBarre(){
     this.model= "";
+  }
+
+  /**
+   * Scroll automatique vers la section recettes
+   * @param id Identifiant du bloc recette
+   */
+  scroll(id: string) {
+    console.log(`scrolling to ${id}`);
+    let el = document.getElementById(id)!;
+    el.scrollIntoView();
   }
 }

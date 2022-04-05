@@ -11,15 +11,13 @@ import * as mapboxgl from 'mapbox-gl';
 
 export class MapComponent implements OnInit {
 
-
-
   style = "mapbox://styles/mapbox/dark-v10";
 
   //l'adresse par defaut est 2 Pl. de la République, 53140 Pré-en-Pail-Saint-Samson
   lat = 48.460749;
   lng = -0.197194;
 
- map: mapboxgl.Map;
+ map!: mapboxgl.Map;
 
   constructor() {}
 
@@ -78,7 +76,7 @@ export class MapComponent implements OnInit {
    * Fonction qui renvoie les 5 meilleures resultats correspondant a un lieux donnee autour de la localisation de l'utilisateur puis place un marker sur la carte sur le lieux et un popup sur ce marker avec le nom du lieux et son addresse
    * @param lieux = nom des lieux a rechercher
    */
-  trouverLocalisation = async (lieux: string) => {
+  trouverLocalisation = async (lieux: string, flyto: boolean) => {
     let token = environment.accessTokenMap;
     let rayon = 5 // Rayon en km autour du quel on limite la recherche
     let R = 6371; // Rayon en km de la terre
@@ -96,9 +94,19 @@ export class MapComponent implements OnInit {
     console.log("Voici l'url : " + url);
     let reponse = this.requeteApi(url);
 
+    
     //Interpretation de toutes les reponses
     reponse.then(data => {
-      for(const localisation of data.features){
+      let resultat = data.features;
+      
+      if(flyto){
+        this.map.flyTo({
+          center: resultat[0].geometry.coordinates,
+          zoom: 15
+        });
+      }
+      
+      for(const localisation of resultat){
         //Creation d'un element
         const el = document.createElement('div');
         el.id = `marker-${localisation.properties.id}`;
@@ -118,17 +126,17 @@ export class MapComponent implements OnInit {
           .addTo(this.map);
 
 
-          this.map.flyTo({
-            center: localisation.geometry.coordinates,
-            zoom: 15
-          });
+          
 
         //Ajout de l'evenement de click permetant d'afficher le popup du marker selectionne
+        /*
         el.addEventListener('click',(e) => {
-          this.map.flyTo({
-            center: localisation.geometry.coordinates,
-            zoom: 15
-          });
+          if(flyto){
+            this.map.flyTo({
+              center: localisation.geometry.coordinates,
+              zoom: 15
+            });
+          }
           const activeItem = document.getElementsByClassName('active');
           e.stopPropagation();
           
@@ -139,12 +147,13 @@ export class MapComponent implements OnInit {
             listing.classList.add('active');
           }
         });
-        
+        */
 
       }
 
-
+      
     });
+    
   };
 
   /**
@@ -160,11 +169,12 @@ export class MapComponent implements OnInit {
         'icon-allow-overlap': true
       }
     });
-    this.trouverLocalisation("Carrefour");
-    this.trouverLocalisation("Leclerc");
-    this.trouverLocalisation("Super U");
-    this.trouverLocalisation("Intermarche");
-    this.trouverLocalisation("Lidl");
+
+    this.trouverLocalisation("Lidl",false);
+    this.trouverLocalisation("Leclerc",false);
+    this.trouverLocalisation("Super U",false);
+    this.trouverLocalisation("Intermarche",false);
+    this.trouverLocalisation("Carrefour",true);
     
   };
 }
